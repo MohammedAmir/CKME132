@@ -1,0 +1,189 @@
+---
+title: 'CKME 132 Summer 2016 - Assignment #1'
+author: "Mohammed Amir"
+output: word_document
+Due date: June 30, 2016
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+Use RStudio for this assignment. 
+Edit the file `assignment_01.Rmd` and insert your R code where wherever you see the string "INSERT YOUR ANSWER HERE"
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+## Sample Question and Solution
+
+Use `seq()` to create the vector $(1,2,3,\ldots,10)$.
+
+```{r}
+seq(1,10)
+```
+
+## Question 1
+
+a) Use the `seq()` function to create the vector $(1, 5, 9, 13, \ldots, 41)$. Note that each term in this sequence is of the form 
+$1 + 4n$ where $n = 1, \ldots, 10$.
+```{r}
+x <- 1+4*(seq(1,41, by = 4))
+x
+```
+
+
+
+b) Use `seq()` and `c()` to create the vector $(2, 3, 4, \ldots, 10, 9, 8, \ldots, 2)$.
+```{r}
+result <- c(seq(2,9, by =1), seq(10,2, by= -1))
+print(result)
+```
+
+
+c) Use `rep()` to create the vector $(1,2,3,\dots,1,2,3)$ in which the sequence $(1,2,3)$ is repeated 5 times.
+```{r}
+rep(1:3,5)
+```
+
+
+d) Use `rep()` to create the vector $(1,1,\ldots,1,2,2,\ldots,2,3,3,\ldots,3)$ where each number is repeated 7 times.
+```{r}
+rep(1:3, each = 7)
+```
+
+e) Use `rep()` to create the vector $(10,20,20,30,30,30,\ldots,100,\ldots,100)$ where $10n$ is repeated $n$ times.
+```{r}
+rep(1:10, c(1,2,3,4,5,6,7,8,9,10))*10
+```
+
+
+## Question 2
+
+a) Compute: $$\sum_{n=1}^{100} n$$
+```{r}
+sum(1:100)
+```
+
+
+b) Compute: $$\sum_{n=1}^{100} n^2$$
+```{r}
+sum(1:100)^2
+```
+
+
+c) Compute: $$\sum_{n=10}^{20} \left(\frac{2^{n}}{n} + \frac{3^{n}}{n^{3}}\right)$$
+```{r}
+sum(2^(10:20)/(10:20) + 3^(10:20)/(10:20)^3)
+```
+
+
+d) Compute: $$\sum_{n=0}^{10} \frac{1}{n!}$$ 
+Hint: Use `factorial(n)` to compute $n!$
+```{r}
+1/factorial(10)
+```
+
+
+e) Compute: $$\sum_{n=1}^{20} \left(2n + \frac{1}{n^2}\right)$$
+```{r}
+sum(2*(1:20) + sum(1/(10:20)^2))
+```
+
+
+
+
+## Question 3
+
+a) Create an empty list `mylist`.
+```{r}
+mylist <- list()
+```
+
+
+b) Add a component named `aa` whose value is 42.
+```{r}
+mylist <- list(aa = 42)
+print(mylist)
+```
+
+
+c) Add a component named `bb` whose value is the numeric vector $(1,2,\ldots,10)$.
+```{r}
+mylist <- list(aa = 42, bb=(1:10))
+print(mylist)
+```
+
+d) Add a component named `cc` whose value is the character vector ("Hello", "CKME 132").
+```{r}
+mylist <- list(aa = 42, bb=(1:10), cc=c("Hello","CKME 132"))
+print(mylist)
+```
+
+
+e) Add a component named `dd` whose value is a 4x3 matrix whose elements are $(1,2,\ldots,12)$ in column-major order.
+```{r}
+mylist <- list(aa = 42, bb=(1:10), cc=c("Hello","CKME 132"), dd=matrix(1:12,nrow=4, ncol=3))
+print(mylist)
+```
+
+
+f) Print `mylist`.
+```{r}
+print(mylist)
+```
+
+
+## Question 4
+
+If you have not already done so, install the ISwR package on
+your computer using the command `install.packages("ISwR")`.
+
+Loading the `ISwR` package into the current session.
+```{r}
+library(ISwR)
+```
+
+a) Print the head of the `thuesen` data frame.
+```{r}
+colnames(thuesen)
+```
+
+
+b) Compute the mean of each variable using `sapply()`, removing `NA` values.
+```{r}
+sapply(thuesen, mean, na.rm=T)
+```
+
+
+c) Create a numeric vectors `n1`, `n2`, and `n3` whose elements are the integers from 1 to 20, their squares, and their cubes.
+```{r}
+n1 <- (1:20)
+print(n1)
+n2 <- sapply((1:20), function(x) x^2)
+print(n2)
+n3 <- sapply((1:20), function(x) x^3)
+print(n3)
+```
+
+
+d) Create a new data frame `nn` from the above three vectors.
+```{r}
+nn <- data.frame(n1,n2,n3)
+print(nn)
+```
+
+
+e) Print the tail of `nn`.
+```{r}
+tail(nn, n=1) # last row
+tail(nn, n=5) # last 5 rows
+```
+
+
+f) Compute the sum of each variable in `nn` using `sapply`.
+```{r}
+nn <- data.frame(n1,n2,n3)
+sapply(nn,sum)
+
+```
+
+
+END of Assignment #1.

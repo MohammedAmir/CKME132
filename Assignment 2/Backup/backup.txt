@@ -1,0 +1,228 @@
+---
+title: 'CKME 132 Summer 2016 - Assignment #2'
+author: "Mohammed Amir"
+date: "June 30, 2016"
+output: pdf_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+Use RStudio for this assignment. 
+Edit the file `assignment-2.Rmd` and insert your R code where wherever you see the string "INSERT YOUR ANSWER HERE"
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+When your are done with your answers and before submitting, save the file with the following naming convention :your **Lastname_firstname**
+
+Submit **both** the rmd and the pdf output(or word or html) files, failing to submit **both** will be subject to mark deduction.
+
+This assignment makes use of data that is provided by the
+`ISwR` package.
+
+```{r}
+library(ISwR)
+```
+
+## Sample Question and Solution
+
+Use `seq()` to create the vector $(1,2,3,\ldots,10)$.
+
+```{r}
+seq(1,10)
+```
+******
+\newpage
+## Question 1 -  35%
+
+In this question you will explore the relation between blood pressure and obesity.
+The data frame `bp.obese` measures blood pressure, obsesity, and sex on a random sample of
+adults.
+
+a) Print the head of `bp.obese` to familiarize yourself with the data.
+
+```{r}
+head(bp.obese)
+```
+
+b) Print a summary of `bp.obese`.
+
+```{r}
+A <- data.frame(bp.obese$sex, bp.obese$obese, bp.obese$bp)
+summary(A)
+```
+
+Note that `sex` is a numeric vector but it should be a factor.
+
+c) Convert  `sex` from numeric to a factor type with two levels in bp.obese.
+```{r}
+as.factor(bp.obese$sex)
+
+```
+d) Use `str` to check the structure after the conversion
+```{r}
+str(as.factor(bp.obese$sex))
+```
+e) Use `sapply`, `any`, and `is.na` to check if there are any `NA` values in each column of `bp.obese`.
+
+```{r}
+any((sapply(bp.obese$sex,is.na)),(sapply(bp.obese$obese,is.na)),(sapply(bp.obese$bp,is.na)))
+
+```
+
+f) Assign the obesity and blood pressure measurements to numeric vectors `obesity` and `bp`.
+Generate a scatter plot of `bp` on the vertical axis versus `obesity` on the horizontal axis.
+
+```{r}
+obesity <- bp.obese$obese
+bp <- bp.obese$bp
+plot(obesity, bp,ylab="BP", xlab="OBESITY", main = "OBESITY VS BP GRAPH")        
+```
+
+Note that blood pressure appears to be positively correlated with obesity.
+
+g) Compute the Pearson correlation $r$ and covariance of `obesity` and `bp`.
+
+```{r}
+#Person's Correlation
+cor(obesity,bp)
+
+#Covariance
+cov(obesity,bp)
+```
+h) determine the type and strength of the relationship. (note when you inserst your answer make sure to use a # at the begining)
+```{r}
+# The Pearson correlation value is 0.326 indicating a positive weak correlation
+
+```
+
+******
+\newpage
+## Question 2 - 35%
+
+Consider the probability distribution associated with rolling 3 fair dice.
+We can label the faces of a single die using the numbers from 1 to 6.
+We can therefore label the simple events in this distribution by triples of numbers from 1 to 6.
+Let `d1`, `d2`, and `d3` represent the labels on each of the dice.
+
+a) Set `d1` to the sequence (1,2,...,6) repeated 36 times.
+
+```{r}
+d1 <- rep(1:6,36)
+d1
+```
+
+b) Set `d2` to the sequence consisting of 6 repetitions of the sequence in which each of the numbers (1,2,...,6) is repeated 6 times.
+
+```{r}
+d2 <- rep(1:6, each = 6, 6)
+d2
+```
+
+c) Set `d3` to the sequence in which each of the numbers (1,2,...,6) is repeated 36 times.
+
+```{r}
+d3 <- rep(1:6, c(36,36,36,36,36,36))
+d3
+```
+d) Create a new data frame `three.dice` from `d1`, `d2`, and `d3` and print it.
+Visually confirm that there are $6 \times 6 \times 6 = 216$ rows and each row contains a unique combination of dice labels.
+
+```{r}
+three.dice <- data.frame(d1,d2,d3)
+print(three.dice)  
+```
+e) Since the dice are fair and independent, each simple event has the same probability, namely $\frac{1}{216}$. Add the column `P` to the data frame with this value.
+```{r}
+p <- rep("1/216",216)
+three.dice <- cbind (three.dice, p)
+print(three.dice)
+```
+f) Add a new column `sum` equal to the sum of the dice labels.
+Add another new column `mean` equal to the average of the dice labels.
+
+```{r}
+#Insert your answer here
+#df <- data.frame(d1,d2,d3)
+#three.dice <- data.frame(df,RowSUM = rowSums(df), RowMeans = rowMeans(df))
+#print(three.dice)
+#data.frame(df, Rsum = rowSums(df), Rmeans = rowMeans(df))
+#Sum <- rowSums(three.dice) 
+#Means <- rowMeans(three.dice)
+#df <- data.frame(three.dice)
+three.dice
+
+
+df1 <- data.frame(d1,d2,d3)
+print(df1)
+df2 <- data.frame( RowSum = rowSums(df1), RowMeans = rowMeans(df1))
+df2
+df3 <- cbind(three.dice,df2)
+df3 
+three.dice <- df3
+three.dice
+```
+g) Plot a probability histogram of `three.dice$sum`.
+
+```{r}
+#Insert your answer here
+hist(three.dice$RowSum)
+```
+h) Compute the probability that the sum of the dice is greater then 12 and less than 18.
+
+**HINT**: Use `subset()` to select the events and sum `P`.
+
+```{r}
+#Insert your answer here
+#sum(subset(three.dice$RowSUM, three.dice$RowSUM > 12 && three.dice$RowSUM < 18),p)
+#r <- sum(subset(three.dice,three.dice$RowSum > 12 & three.dice$RowSum < 18 )p)
+#r
+
+a <- subset(data.frame(three.dice$RowSum),three.dice$RowSum > 12 & three.dice$RowSum < 18)
+b <- nrow(a) * (1/216)
+print(b)
+```
+i) Compute the probability that the sum is even.
+
+```{r}
+#Insert your answer here
+f <- subset(data.frame(three.dice$RowSum),three.dice$RowSum %%2 == 0))
+f
+```
+j) Compute the probability that the mean is exactly 4.
+
+```{r}
+#Insert your answer here
+M <- mean(subset(three.dice$RowSUM,three.dice$RowMeans == 4))
+M
+```
+******
+\newpage
+## Question 3 - 30%
+a)You have two groups of distinctly different items, 10 in the first group and 8 in the second. If you select one item from each group, how many different pairs can you form?
+```{r}
+#use the mn rule
+m <- 10
+n <- 8
+y <- (m*n)
+print(y)
+```
+b)Evaluate the following permutation $P_{3}^5$
+
+```{r}
+x <- factorial(5)/factorial(2)
+print (x)
+```
+c)In how many ways can you select five people from a group of eight if the order of selection is important?
+```{r}
+#Since order is important, you use permutations
+# n!/(n-k)!
+factorial(8)/factorial(3)
+```
+d)In how many ways can you select two people from a group of 20 if the order of selection is not important?
+```{r}
+#Since order is unimportant, you use combinations
+# n!/k!(n-k)!
+factorial(20)/(factorial(2) * factorial(18))
+```
+
+END of Assignment #2.

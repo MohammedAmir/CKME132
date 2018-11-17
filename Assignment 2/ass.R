@@ -1,0 +1,16 @@
+x <- c(1:10)
+y <- factor(x, labels = c("private", "public"))
+print(y)
+
+?factor()
+?str()
+?any()
+x <- c(1:10, 22, NA)
+y <- any(is.na(x))
+print(y)
+
+s <- c(1:8, NA,10)
+print(s)
+is.na(s)
+?sapply()
+cor(1:10, 2:11)
